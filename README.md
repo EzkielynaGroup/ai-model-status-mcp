@@ -1,5 +1,9 @@
 # AI Model Status MCP
 
+<!-- ezk:badges -->
+[![npm](https://img.shields.io/npm/v/ai-model-status-mcp?color=c2410c)](https://www.npmjs.com/package/ai-model-status-mcp) [![CI](https://github.com/EzkielynaGroup/ai-model-status-mcp/actions/workflows/test.yml/badge.svg)](https://github.com/EzkielynaGroup/ai-model-status-mcp/actions/workflows/test.yml) [![MCP Registry](https://img.shields.io/badge/MCP_Registry-io.github.EzkielynaGroup%2Fai--model--status--mcp-1f6feb)](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.EzkielynaGroup/ai-model-status-mcp) [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+<!-- /ezk:badges -->
+
 An [MCP](https://modelcontextprotocol.io) server that tells your AI assistant **which AI models are up, fast, popular and low-priced right now**, from public status, usage and price data. **No API key, no account, nothing paid**: install it and ask.
 
 Example: *"Is deepseek-v4.1-flash up right now, and how fast does it start answering compared with gpt-6-luna and claude-haiku-5-5?"*
@@ -175,3 +179,17 @@ Made by Ezkielyna, an independent AI API gateway for Indonesian developers (QRIS
 ## License
 
 MIT for the code. Leaderboard data: CC BY 4.0, Ezkielyna. Ezkielyna is an independent API gateway and is not affiliated with the model vendors or the MCP client makers.
+
+<!-- ezk:toolkit -->
+---
+
+### Part of the Ezkielyna developer toolkit
+
+Open-source tools from [Ezkielyna](https://ezkielyna.store/?utm_source=github&utm_medium=readme&utm_campaign=ai-model-status-mcp), an independent OpenAI- and Anthropic-compatible AI API gateway (pay with QRIS, USDT or Binance Pay; no credit card).
+
+| No API key needed | With an Ezkielyna key |
+|---|---|
+| [mcp-bmkg](https://github.com/EzkielynaGroup/mcp-bmkg) · [mcp-wilayah-indonesia](https://github.com/EzkielynaGroup/mcp-wilayah-indonesia) · [mcp-hari-libur-indonesia](https://github.com/EzkielynaGroup/mcp-hari-libur-indonesia) · [mcp-rupiah](https://github.com/EzkielynaGroup/mcp-rupiah) · [mcp-qris](https://github.com/EzkielynaGroup/mcp-qris) · [ai-model-status-mcp](https://github.com/EzkielynaGroup/ai-model-status-mcp) | [ezkielyna-mcp](https://github.com/EzkielynaGroup/ezkielyna-mcp) · [ezkielyna-image-mcp](https://github.com/EzkielynaGroup/ezkielyna-image-mcp) · [ezkielyna-audio-mcp](https://github.com/EzkielynaGroup/ezkielyna-audio-mcp) · [n8n-nodes-ezkielyna](https://github.com/EzkielynaGroup/n8n-nodes-ezkielyna) |
+
+More: [all repositories](https://github.com/EzkielynaGroup) · [awesome-mcp-indonesia](https://github.com/EzkielynaGroup/awesome-mcp-indonesia) · [awesome-ai-indonesia](https://github.com/EzkielynaGroup/awesome-ai-indonesia)
+<!-- /ezk:toolkit -->
