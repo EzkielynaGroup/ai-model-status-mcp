@@ -512,7 +512,7 @@ async function usageLeaderboard(args) {
     '',
     `Ranked models together: ${num(total)} requests this week vs ${num(totalPrev)} the week before`
       + (totalPrev ? ` (${total >= totalPrev ? '+' : ''}${((total / totalPrev - 1) * 100).toFixed(1)}%).` : '.'),
-    `Ranked only when used by at least ${v.models.min_users || 3} people. Share % is of all ranked requests on this gateway.`
+    `Ranked only when used by at least ${v.models.min_users || 3} people. Share % is the gateway's published share of requests in the window.`
       + (hidden ? ' Models outside this tool\'s content policy are not listed.' : ''),
     apps.length ? `Top apps (from user agents${v.apps.status === 'partial' ? `, partial data since ${fmtDay(v.apps.data_since)}` : ''}): `
       + apps.map(a => `${a.name} ${a.share_pct}%`).join(', ') : null,

@@ -134,7 +134,7 @@ Ask `model_status` with the model id. It shows the success rate of the last 24 h
 This server can only answer for one gateway: `cheapest_models` with `task: "coding"` lists the lowest listed prices on Ezkielyna, with uptime. Compare with other providers before deciding.
 
 **Which AI models do Indonesian developers use most?**
-On Ezkielyna, DeepSeek V4.1 Flash variants took about 85% of ranked requests in the week to 11 Nov 2026 (`usage_leaderboard`). That is one gateway with tens of users per model, not national market share.
+On Ezkielyna, DeepSeek V4.1 Flash variants took about 85% of requests in the week to 11 Nov 2026 (`usage_leaderboard`). That is one gateway with tens of users per model, not national market share.
 
 **Do I need an API key or an Ezkielyna account?**
 No. All three data files are public. You only need a key if you later want to call the models themselves.
@@ -164,7 +164,7 @@ Contoh pertanyaan: *"Apakah deepseek-v4.1-flash sedang normal? Bandingkan kecepa
 
 **FAQ singkat**
 
-- *Model AI apa yang paling banyak dipakai developer Indonesia?* Di Ezkielyna, varian DeepSeek V4.1 Flash memegang sekitar 85% request yang masuk peringkat pada minggu yang berakhir 11 Nov 2026. Itu data satu gateway, bukan seluruh pasar.
+- *Model AI apa yang paling banyak dipakai developer Indonesia?* Di Ezkielyna, varian DeepSeek V4.1 Flash memegang sekitar 85% request pada minggu yang berakhir 11 Nov 2026. Itu data satu gateway, bukan seluruh pasar.
 - *API AI mana yang paling cepat?* Pakai `model_status` dengan `sort_by: "latency"`. Ingat, prompt besar (alat coding) membuat token pertama lebih lambat.
 - *Perlu API key?* Tidak. Ketiga file data bersifat publik.
 
