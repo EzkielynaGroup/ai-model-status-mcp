@@ -1,0 +1,47 @@
+{
+  "name": "ai-model-status-mcp",
+  "version": "1.0.0",
+  "description": "MCP server: which AI model is up, fast, popular or low-priced right now. Public data, no API key.",
+  "mcpName": "io.github.EzkielynaGroup/ai-model-status-mcp",
+  "type": "module",
+  "bin": {
+    "ai-model-status-mcp": "ai-model-status-mcp.mjs"
+  },
+  "files": [
+    "ai-model-status-mcp.mjs",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "llm",
+    "ai-models",
+    "model-status",
+    "uptime",
+    "latency",
+    "llm-pricing",
+    "leaderboard",
+    "indonesia",
+    "claude-desktop",
+    "claude-code",
+    "cursor",
+    "opencode"
+  ],
+  "author": "Ezekiel Lieberhart (Ezkielyna)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EzkielynaGroup/ai-model-status-mcp.git"
+  },
+  "homepage": "https://github.com/EzkielynaGroup/ai-model-status-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/EzkielynaGroup/ai-model-status-mcp/issues"
+  }
+}

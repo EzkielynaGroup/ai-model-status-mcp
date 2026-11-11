@@ -1,0 +1,41 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.EzkielynaGroup/ai-model-status-mcp",
+  "title": "AI Model Status",
+  "description": "Live uptime, latency, prices and weekly usage of AI models from public data. No API key.",
+  "repository": {
+    "url": "https://github.com/EzkielynaGroup/ai-model-status-mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "ai-model-status-mcp",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "AI_MODEL_STATUS_IDR_PER_USD",
+          "description": "Rupiah per USD for the approximate IDR prices (default 15000)",
+          "isRequired": false,
+          "format": "string"
+        },
+        {
+          "name": "AI_MODEL_STATUS_CACHE_MS",
+          "description": "In-memory cache per data file in ms (default 60000)",
+          "isRequired": false,
+          "format": "string"
+        },
+        {
+          "name": "AI_MODEL_STATUS_TIMEOUT_MS",
+          "description": "Timeout per data request in ms (default 15000)",
+          "isRequired": false,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}
