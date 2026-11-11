@@ -19,7 +19,7 @@ Example: *"Is deepseek-v4.1-flash up right now, and how fast does it start answe
 | `model_status` | One model's success rate (24 h), uptime (7 d / 30 d), time to first token p50/p90, output speed, request counts, list price. Or the top N models by `uptime`, `latency`, `speed` or `requests`, optionally for one `kind` (deepseek, gpt, claude, gemini, glm, qwen, image, ...). | "Which models had the fastest first token in the last 24 hours?" |
 | `compare_models` | 2-6 models side by side: price per 1M input/output tokens in USD and approximate IDR (or per image / second / request for media models), key group, latency p50/p90, speed, success rate and uptime. | "Compare deepseek-v4-pro, gpt-5.6-terra and claude-sonnet-5.5." |
 | `usage_leaderboard` | Most-used models over the last 7 days (requests, share %, tokens, users) and the change versus the week before. Includes the attribution line *Data: Ezkielyna, CC BY 4.0 — https://ezkielyna.store/peringkat*. | "What AI models are developers in Indonesia using most this week?" |
-| `cheapest_models` | Models with the **lowest listed price on Ezkielyna** for a task: `chat`, `coding`, `image` or `tts`, with uptime next to each price. Leaves out models whose 7-day uptime is below 90% unless you set `min_uptime_7d`. | "Which coding model has the lowest listed price there and is still reliable?" |
+| `lowest_price_models` | Models with the **lowest listed price on Ezkielyna** for a task: `chat`, `coding`, `image` or `tts`, with uptime next to each price. Leaves out models whose 7-day uptime is below 90% unless you set `min_uptime_7d`. | "Which coding model has the lowest listed price there and is still reliable?" |
 
 All tools are read-only (`readOnlyHint: true`). Model ids containing `uncensored`, `abliterated` or `nsfw` are never listed.
 
@@ -131,7 +131,7 @@ Ask `model_status` with the model id. It shows the success rate of the last 24 h
 `model_status` with `sort_by: "latency"` lists the lowest median time to first token over the last 24 hours. Prompt size matters a lot: coding agents send 100k+ token prompts, which start slower.
 
 **Where can I find a low-priced AI API for coding?**
-This server can only answer for one gateway: `cheapest_models` with `task: "coding"` lists the lowest listed prices on Ezkielyna, with uptime. Compare with other providers before deciding.
+This server can only answer for one gateway: `lowest_price_models` with `task: "coding"` lists the lowest listed prices on Ezkielyna, with uptime. Compare with other providers before deciding.
 
 **Which AI models do Indonesian developers use most?**
 On Ezkielyna, DeepSeek V4.1 Flash variants took about 85% of requests in the week to 11 Nov 2026 (`usage_leaderboard`). That is one gateway with tens of users per model, not national market share.
@@ -156,7 +156,7 @@ Server MCP agar asisten AI (Claude Desktop, Claude Code, Cursor, OpenCode) bisa 
 Contoh pertanyaan: *"Apakah deepseek-v4.1-flash sedang normal? Bandingkan kecepatannya dengan gpt-6-luna."* atau *"Model AI apa yang paling banyak dipakai developer minggu ini?"*
 
 - Cukup **Node.js 18+**. Aplikasi menjalankannya dengan `npx -y ai-model-status-mcp` (contoh konfigurasi di atas, tanpa `env`).
-- Empat tool: `model_status` (status satu model atau top N menurut uptime/latensi/kecepatan/jumlah request), `compare_models` (2-6 model: harga per 1 juta token dalam USD dan perkiraan Rupiah, latensi, uptime), `usage_leaderboard` (peringkat pemakaian 7 hari + perubahan dari minggu lalu, data CC BY 4.0), `cheapest_models` (harga terdaftar paling rendah **di Ezkielyna** untuk chat, coding, gambar atau TTS).
+- Empat tool: `model_status` (status satu model atau top N menurut uptime/latensi/kecepatan/jumlah request), `compare_models` (2-6 model: harga per 1 juta token dalam USD dan perkiraan Rupiah, latensi, uptime), `usage_leaderboard` (peringkat pemakaian 7 hari + perubahan dari minggu lalu, data CC BY 4.0), `lowest_price_models` (harga terdaftar paling rendah **di Ezkielyna** untuk chat, coding, gambar atau TTS).
 - **Penting:** semua angka berasal dari **satu gateway independen**, Ezkielyna, yang penggunanya kebanyakan developer Indonesia dengan alat coding berbasis agen (puluhan pengguna per model). Ini sampel jujur dari satu gateway, bukan pangsa pasar nasional dan bukan status dari pembuat model.
 - Rupiah dihitung dengan kurs Rp15.000 per USD (kurs paket API Credit $1; paket lebih besar lebih murah per dolar). Ubah lewat `AI_MODEL_STATUS_IDR_PER_USD`.
 - Data dicache 60 detik di memori. Model dengan id berisi `uncensored`, `abliterated` atau `nsfw` tidak pernah ditampilkan.

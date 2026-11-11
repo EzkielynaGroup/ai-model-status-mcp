@@ -355,7 +355,7 @@ const TOOLS = [
     annotations: { title: 'Usage leaderboard', ...READ_ONLY },
   },
   {
-    name: 'cheapest_models',
+    name: 'lowest_price_models',
     title: 'Lowest listed prices on Ezkielyna',
     description: 'Models with the lowest listed price on Ezkielyna for a task: chat, coding (models that also work with Claude Code / Codex / '
       + 'OpenCode style agents), image (price per image) or tts (price per 1M characters). Shows uptime next to each price and by default '
@@ -378,7 +378,7 @@ async function callTool(name, args) {
   if (name === 'model_status') return modelStatus(args);
   if (name === 'compare_models') return compareModels(args);
   if (name === 'usage_leaderboard') return usageLeaderboard(args);
-  if (name === 'cheapest_models') return cheapestModels(args);
+  if (name === 'lowest_price_models') return cheapestModels(args);
   throw Object.assign(new Error(`Unknown tool: ${name}`), { rpcCode: -32602 });
 }
 
@@ -590,7 +590,7 @@ async function handle(msg) {
           capabilities: { tools: { listChanged: false } },
           serverInfo: { name: 'ai-model-status', title: 'AI Model Status', version: VERSION },
           instructions: 'Answers which AI models are up, fast, popular or low-priced right now, from the public status, usage and price files '
-            + 'of Ezkielyna (one independent API gateway). Use model_status, compare_models, usage_leaderboard, cheapest_models. '
+            + 'of Ezkielyna (one independent API gateway). Use model_status, compare_models, usage_leaderboard, lowest_price_models. '
             + 'Always tell the user the numbers come from this one gateway, not the whole market. No API key needed.',
         };
         break;

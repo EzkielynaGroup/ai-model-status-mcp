@@ -87,7 +87,7 @@ test('handshake, ping, tools/list and protocol errors', async () => {
   assert.equal((await mcp.request('initialize', { protocolVersion: '1999-01-01' })).result.protocolVersion, '2025-06-18');
   assert.deepEqual((await mcp.request('ping')).result, {});
   const list = (await mcp.request('tools/list', {})).result.tools;
-  assert.deepEqual(list.map(t => t.name).sort(), ['cheapest_models', 'compare_models', 'model_status', 'usage_leaderboard']);
+  assert.deepEqual(list.map(t => t.name).sort(), ['lowest_price_models', 'compare_models', 'model_status', 'usage_leaderboard']);
   for (const t of list) {
     assert.equal(t.inputSchema.type, 'object');
     assert.equal(t.annotations.readOnlyHint, true);
@@ -230,9 +230,9 @@ test('usage_leaderboard: ranks, change vs last week, attribution, filter', async
   await mcp.stop();
 });
 
-test('cheapest_models chat/coding: lowest listed price, uptime filter, no aliases, honest wording', async () => {
+test('lowest_price_models chat/coding: lowest listed price, uptime filter, no aliases, honest wording', async () => {
   const mcp = startMcp();
-  const chat = textOf(await mcp.call('cheapest_models', { task: 'chat', top: 20 }));
+  const chat = textOf(await mcp.call('lowest_price_models', { task: 'chat', top: 20 }));
   assert.match(chat, /^Lowest listed prices on Ezkielyna for chat:/);
   assert.match(chat, /1\. glm-4\.5-flash \(Zhipu AI\): in \$0\.0122 \/ out \$0\.0122/);
   assert.doesNotMatch(chat, /cheapest|termurah/i);
@@ -242,9 +242,9 @@ test('cheapest_models chat/coding: lowest listed price, uptime filter, no aliase
   assert.doesNotMatch(chat, /gpt-image|edge-tts|stt-|embedding|veo/);
   assert.match(chat, /2 model\(s\) left out because their 7-day uptime is below 90%/); // muse-chat, LongCat-2.0
   assert.match(chat, /other providers may charge less or more/);
-  const all = textOf(await mcp.call('cheapest_models', { task: 'chat', top: 20, min_uptime_7d: 0 }));
+  const all = textOf(await mcp.call('lowest_price_models', { task: 'chat', top: 20, min_uptime_7d: 0 }));
   assert.match(all, /muse-chat/);
-  const coding = textOf(await mcp.call('cheapest_models', { task: 'coding', top: 20 }));
+  const coding = textOf(await mcp.call('lowest_price_models', { task: 'coding', top: 20 }));
   assert.match(coding, /coding \(agent-compatible chat models\)/);
   assert.match(coding, /deepseek-v4\.1-flash/);
   assert.doesNotMatch(coding, /claude-haiku-5-5/); // served in OpenAI format only here
@@ -252,21 +252,21 @@ test('cheapest_models chat/coding: lowest listed price, uptime filter, no aliase
   await mcp.stop();
 });
 
-test('cheapest_models image and tts', async () => {
+test('lowest_price_models image and tts', async () => {
   const mcp = startMcp();
-  const img = textOf(await mcp.call('cheapest_models', { task: 'image', top: 3 }));
+  const img = textOf(await mcp.call('lowest_price_models', { task: 'image', top: 3 }));
   // gpt-image-2.5 has the lowest price but only 22.22% uptime over 7 days, so the default filter leaves it out.
   assert.match(img, /image generation:\n1\. gpt-image-2 \(OpenAI\): \$0\.00825 per image \(~Rp124\); key group Media; no status data/);
   assert.doesNotMatch(img, /gpt-image-2\.5/);
-  const imgAll = textOf(await mcp.call('cheapest_models', { task: 'image', top: 3, min_uptime_7d: 0 }));
+  const imgAll = textOf(await mcp.call('lowest_price_models', { task: 'image', top: 3, min_uptime_7d: 0 }));
   assert.match(imgAll, /image generation:\n1\. gpt-image-2\.5 \(OpenAI\): \$0\.00207 per image/);
   assert.doesNotMatch(img, /veo-3\.1/); // video is not image
-  const tts = textOf(await mcp.call('cheapest_models', { task: 'tts', min_uptime_7d: 0 }));
+  const tts = textOf(await mcp.call('lowest_price_models', { task: 'tts', min_uptime_7d: 0 }));
   assert.match(tts, /1\. edge-tts \(Microsoft\): \$1 per 1M input characters/);
   assert.doesNotMatch(tts, /stt-xai/);
-  assert.ok((await mcp.call('cheapest_models', {})).isError);
-  assert.ok((await mcp.call('cheapest_models', { task: 'video' })).isError);
-  assert.ok((await mcp.call('cheapest_models', { task: 'chat', min_uptime_7d: 101 })).isError);
+  assert.ok((await mcp.call('lowest_price_models', {})).isError);
+  assert.ok((await mcp.call('lowest_price_models', { task: 'video' })).isError);
+  assert.ok((await mcp.call('lowest_price_models', { task: 'chat', min_uptime_7d: 101 })).isError);
   await mcp.stop();
 });
 
