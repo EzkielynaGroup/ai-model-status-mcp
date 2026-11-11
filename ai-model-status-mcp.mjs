@@ -378,7 +378,7 @@ async function callTool(name, args) {
   if (name === 'model_status') return modelStatus(args);
   if (name === 'compare_models') return compareModels(args);
   if (name === 'usage_leaderboard') return usageLeaderboard(args);
-  if (name === 'lowest_price_models') return cheapestModels(args);
+  if (name === 'lowest_price_models') return lowestPriceModels(args);
   throw Object.assign(new Error(`Unknown tool: ${name}`), { rpcCode: -32602 });
 }
 
@@ -521,7 +521,7 @@ async function usageLeaderboard(args) {
   ].filter(x => x != null && x !== false).join('\n'));
 }
 
-async function cheapestModels(args) {
+async function lowestPriceModels(args) {
   const task = enumArg(args.task, 'task', TASKS, '');
   if (!task) throw new ToolError(`"task" is required: ${TASKS.join(', ')}.`);
   const top = intArg(args.top, 'top', 10, 1, 20);

@@ -87,7 +87,7 @@ test('handshake, ping, tools/list and protocol errors', async () => {
   assert.equal((await mcp.request('initialize', { protocolVersion: '1999-01-01' })).result.protocolVersion, '2025-06-18');
   assert.deepEqual((await mcp.request('ping')).result, {});
   const list = (await mcp.request('tools/list', {})).result.tools;
-  assert.deepEqual(list.map(t => t.name).sort(), ['lowest_price_models', 'compare_models', 'model_status', 'usage_leaderboard']);
+  assert.deepEqual(list.map(t => t.name).sort(), ['compare_models', 'lowest_price_models', 'model_status', 'usage_leaderboard']);
   for (const t of list) {
     assert.equal(t.inputSchema.type, 'object');
     assert.equal(t.annotations.readOnlyHint, true);
