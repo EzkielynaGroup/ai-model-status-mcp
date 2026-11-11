@@ -1,6 +1,6 @@
 {
   "name": "ai-model-status-mcp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "MCP server: which AI model is up, fast, popular or low-priced right now. Public data, no API key.",
   "mcpName": "io.github.EzkielynaGroup/ai-model-status-mcp",
   "type": "module",

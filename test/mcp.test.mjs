@@ -331,6 +331,46 @@ test('source errors become short actionable messages', async () => {
 test('stdout carries only JSON-RPC (logs go to stderr)', async () => {
   const mcp = startMcp();
   await mcp.call('model_status', { sort_by: 'requests', top: 2 });
-  assert.match(mcp.stderr(), /\[ai-model-status\] v1\.0\.0 ready/);
+  assert.match(mcp.stderr(), /\[ai-model-status\] v1\.1\.0 ready/);
   await mcp.stop();
+});
+
+// ---------- CLI mode (1.1.0) ----------
+import { execFile } from 'node:child_process';
+const runCli = (args, extraEnv = {}) => new Promise(resolve => {
+  execFile(process.execPath, [SERVER, ...args], { env: { PATH: process.env.PATH, AI_MODEL_STATUS_SOURCE: base, ...extraEnv }, timeout: 15000 },
+    (err, stdout, stderr) => resolve({ code: err ? err.code : 0, stdout, stderr }));
+});
+
+test('CLI: --help and --version need no network', async () => {
+  const h = await runCli(['--help'], { AI_MODEL_STATUS_SOURCE: 'http://127.0.0.1:9' });
+  assert.equal(h.code, 0);
+  assert.match(h.stdout, /npx -y ai-model-status-mcp status \[model\]/);
+  const v = await runCli(['--version']);
+  assert.equal(v.stdout.trim(), '1.1.0');
+});
+
+test('CLI: status, fast, top, cheap and compare print tool text to stdout', async () => {
+  mode = 'ok';
+  const s = await runCli(['status']);
+  assert.equal(s.code, 0);
+  assert.match(s.stdout, /uptime 7d/);
+  assert.match(s.stdout, /one independent AI API gateway/);
+  assert.equal((await runCli(['fast'])).code, 0);
+  const t = await runCli(['top']);
+  assert.equal(t.code, 0);
+  assert.match(t.stdout, /Most-used models/);
+  assert.doesNotMatch(t.stdout, /uncensored|abliterated|nsfw/i);
+  assert.equal((await runCli(['cheap', 'coding'])).code, 0);
+  const c = await runCli(['compare', 'only-one']);
+  assert.notEqual(c.code, 0);
+});
+
+test('CLI: unknown command exits 2 with help on stderr; data errors exit 1', async () => {
+  const u = await runCli(['bogus']);
+  assert.equal(u.code, 2);
+  assert.match(u.stderr, /Unknown command: bogus/);
+  assert.equal(u.stdout, '');
+  const d = await runCli(['top'], { AI_MODEL_STATUS_SOURCE: 'http://127.0.0.1:9' });
+  assert.equal(d.code, 1);
 });

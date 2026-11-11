@@ -10,7 +10,7 @@
 //   AI_MODEL_STATUS_IDR_PER_USD  rate for the approximate rupiah column, default 15000
 import readline from 'node:readline';
 
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 const PROTOCOL_VERSIONS = ['2025-11-25', '2025-06-18', '2025-03-26', '2024-11-05'];
 const DEFAULT_PROTOCOL = '2025-06-18';
 const UTM = '?utm_source=github&utm_medium=mcp&utm_campaign=ai-model-status-mcp';
@@ -626,6 +626,45 @@ async function handle(msg) {
   }
 }
 
+
+// ---------- CLI mode (1.1.0): `npx ai-model-status-mcp <command>` prints the same text as the tools; no args = MCP server ----------
+const CLI_HELP = `ai-model-status-mcp ${VERSION}: which AI model is up, fast, popular or low-priced right now (public data, no API key)
+
+Usage:
+  npx -y ai-model-status-mcp                      start the MCP server (stdio); this is what MCP clients run
+  npx -y ai-model-status-mcp status [model]       status of one model, or the top 10 by 7-day uptime
+  npx -y ai-model-status-mcp fast                 top 10 by first-token latency
+  npx -y ai-model-status-mcp compare <a> <b> ...  compare 2-6 models side by side
+  npx -y ai-model-status-mcp top                  most-used models this week
+  npx -y ai-model-status-mcp cheap <chat|coding|image|tts>   lowest listed prices for a task
+  npx -y ai-model-status-mcp --help | --version
+
+${SCOPE_NOTE}`;
+
+async function cli(argv) {
+  const [cmd, ...rest] = argv;
+  if (cmd === '--help' || cmd === '-h' || cmd === 'help') { process.stdout.write(CLI_HELP + '\n'); return 0; }
+  if (cmd === '--version' || cmd === '-v') { process.stdout.write(VERSION + '\n'); return 0; }
+  const calls = {
+    status: () => ['model_status', rest[0] ? { model: rest[0] } : {}],
+    fast: () => ['model_status', { sort_by: 'latency' }],
+    compare: () => ['compare_models', { models: rest }],
+    top: () => ['usage_leaderboard', {}],
+    cheap: () => ['lowest_price_models', { task: rest[0] || 'chat' }],
+  };
+  if (!calls[cmd]) { process.stderr.write(`Unknown command: ${cmd}\n\n${CLI_HELP}\n`); return 2; }
+  const [tool, args] = calls[cmd]();
+  try {
+    const r = await callTool(tool, args);
+    const out = r.content.map(c => c.text).join('\n');
+    (r.isError ? process.stderr : process.stdout).write(out + '\n');
+    return r.isError ? 1 : 0;
+  } catch (e) {
+    process.stderr.write(`Error: ${(e && e.message) || e}\n`);
+    return 1;
+  }
+}
+
 function main() {
   if (SOURCE.error) log('warning:', SOURCE.error);
   log(`v${VERSION} ready; source ${SOURCE.origin || '(invalid)'}; cache ${CACHE_MS} ms`);
@@ -655,4 +694,5 @@ function main() {
   });
 }
 
-main();
+if (process.argv.length > 2) cli(process.argv.slice(2)).then(code => process.exit(code));
+else main();

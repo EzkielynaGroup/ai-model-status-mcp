@@ -40,6 +40,29 @@ Most-used models on Ezkielyna, 2026-11-04 to 2026-11-11 (7 days), by requests:
 Data: Ezkielyna, CC BY 4.0 — https://ezkielyna.store/peringkat
 ```
 
+## Use it from the terminal (no MCP client needed)
+
+Since 1.1.0 the same answers work as a one-line command. No API key, no signup:
+
+```bash
+npx -y ai-model-status-mcp status deepseek-v4.1-flash   # one model: success rate, uptime, first-token latency, price
+npx -y ai-model-status-mcp status                       # top 10 by 7-day uptime
+npx -y ai-model-status-mcp fast                         # top 10 by first-token latency
+npx -y ai-model-status-mcp compare gpt-6-luna claude-haiku-5-5
+npx -y ai-model-status-mcp top                          # most-used models this week
+npx -y ai-model-status-mcp cheap coding                 # lowest listed prices (chat, coding, image, tts)
+```
+
+Example output (12 Nov 2026):
+
+```text
+- deepseek-v4.1-flash (DeepSeek): success 24h 100% (7,345 req), uptime 7d 99.98% (40,014 req), 30d 99.74%, first token p50 3.8 s / p90 10.8 s, speed 120 tok/s
+  price: in $0.04 / out $0.16 per 1M tokens (~Rp600 / Rp2.400), cached input $0.0054; key group Standard
+```
+
+The numbers are measured on one independent gateway's own traffic (Ezkielyna), not provider-wide figures.
+With no command, the program starts the MCP server, which is what MCP clients run.
+
 ## Install
 
 **With npx (recommended):** nothing to install. The configs below run `npx -y ai-model-status-mcp`, which downloads the package (one file, no dependencies) on first start.
@@ -154,6 +177,8 @@ The tests spawn the server over stdio against a local mock server with recorded 
 ---
 
 ## Bahasa Indonesia
+
+Sejak 1.1.0 bisa dipakai langsung dari terminal tanpa API key: `npx -y ai-model-status-mcp status <model>`, `fast`, `top`, `cheap coding`, `compare <a> <b>`.
 
 Server MCP agar asisten AI (Claude Desktop, Claude Code, Cursor, OpenCode) bisa menjawab **model AI mana yang sedang aktif, cepat, paling banyak dipakai, dan berharga rendah saat ini**. **Tanpa API key, tanpa akun, gratis.**
 
