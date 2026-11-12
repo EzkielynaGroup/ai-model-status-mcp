@@ -10,7 +10,7 @@
 //   AI_MODEL_STATUS_IDR_PER_USD  rate for the approximate rupiah column, default 15000
 import readline from 'node:readline';
 
-const VERSION = '1.1.0';
+const VERSION = '1.1.1';
 const PROTOCOL_VERSIONS = ['2025-11-25', '2025-06-18', '2025-03-26', '2024-11-05'];
 const DEFAULT_PROTOCOL = '2025-06-18';
 const UTM = '?utm_source=github&utm_medium=mcp&utm_campaign=ai-model-status-mcp';
@@ -627,7 +627,7 @@ async function handle(msg) {
 }
 
 
-// ---------- CLI mode (1.1.0): `npx ai-model-status-mcp <command>` prints the same text as the tools; no args = MCP server ----------
+// ---------- CLI mode (1.1.1): `npx ai-model-status-mcp <command>` prints the same text as the tools; no args = MCP server ----------
 const CLI_HELP = `ai-model-status-mcp ${VERSION}: which AI model is up, fast, popular or low-priced right now (public data, no API key)
 
 Usage:

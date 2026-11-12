@@ -331,11 +331,11 @@ test('source errors become short actionable messages', async () => {
 test('stdout carries only JSON-RPC (logs go to stderr)', async () => {
   const mcp = startMcp();
   await mcp.call('model_status', { sort_by: 'requests', top: 2 });
-  assert.match(mcp.stderr(), /\[ai-model-status\] v1\.1\.0 ready/);
+  assert.match(mcp.stderr(), /\[ai-model-status\] v1\.1\.1 ready/);
   await mcp.stop();
 });
 
-// ---------- CLI mode (1.1.0) ----------
+// ---------- CLI mode (1.1.1) ----------
 import { execFile } from 'node:child_process';
 const runCli = (args, extraEnv = {}) => new Promise(resolve => {
   execFile(process.execPath, [SERVER, ...args], { env: { PATH: process.env.PATH, AI_MODEL_STATUS_SOURCE: base, ...extraEnv }, timeout: 15000 },
@@ -347,7 +347,7 @@ test('CLI: --help and --version need no network', async () => {
   assert.equal(h.code, 0);
   assert.match(h.stdout, /npx -y ai-model-status-mcp status \[model\]/);
   const v = await runCli(['--version']);
-  assert.equal(v.stdout.trim(), '1.1.0');
+  assert.equal(v.stdout.trim(), '1.1.1');
 });
 
 test('CLI: status, fast, top, cheap and compare print tool text to stdout', async () => {

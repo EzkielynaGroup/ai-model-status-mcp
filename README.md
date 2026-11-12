@@ -42,7 +42,7 @@ Data: Ezkielyna, CC BY 4.0 — https://ezkielyna.store/peringkat
 
 ## Use it from the terminal (no MCP client needed)
 
-Since 1.1.0 the same answers work as a one-line command. No API key, no signup:
+Since 1.1.1 the same answers work as a one-line command. No API key, no signup:
 
 ```bash
 npx -y ai-model-status-mcp status deepseek-v4.1-flash   # one model: success rate, uptime, first-token latency, price
@@ -178,7 +178,7 @@ The tests spawn the server over stdio against a local mock server with recorded 
 
 ## Bahasa Indonesia
 
-Sejak 1.1.0 bisa dipakai langsung dari terminal tanpa API key: `npx -y ai-model-status-mcp status <model>`, `fast`, `top`, `cheap coding`, `compare <a> <b>`.
+Sejak 1.1.1 bisa dipakai langsung dari terminal tanpa API key: `npx -y ai-model-status-mcp status <model>`, `fast`, `top`, `cheap coding`, `compare <a> <b>`.
 
 Server MCP agar asisten AI (Claude Desktop, Claude Code, Cursor, OpenCode) bisa menjawab **model AI mana yang sedang aktif, cepat, paling banyak dipakai, dan berharga rendah saat ini**. **Tanpa API key, tanpa akun, gratis.**
 
